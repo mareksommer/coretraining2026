@@ -1,0 +1,16 @@
+# WordPress sensitive config
+wp-config.php
+
+# Uploads
+wp-content/uploads/
+
+# Cache
+wp-content/cache/
+wp-content/upgrade/
+
+# WP-CLI
+wp-cli.local.yml
+
+# OS
+.DS_Store
+Thumbs.db
