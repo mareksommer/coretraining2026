@@ -30,83 +30,37 @@ Formuláře (odpověď na inzerát, registrace) se odesílají přes **AJAX** s 
 
 ---
 
-## Spuštění
+## Nasazení
 
 ### Požadavky
 
-- Docker a Docker Compose
+- Docker
+- GitHub CLI (`gh`) přihlášený k účtu s přístupem do `stafiocz/*`
 
-### Lokální vývoj
+### Publikování na produkci (tcpro)
 
-```bash
-docker compose up
+```powershell
+.\stf-scripts\deploy.ps1
 ```
 
-`docker compose up` spustí dva kontejnery:
-- **wordpress** — WordPress na `http://localhost:8080`
-- **db** — MySQL databáze (port 3306, přístupná pouze interně mezi kontejnery)
+Skript provede tři kroky:
+1. Spustí GitHub Actions workflow `build-push.yml` v tomto repozitáři — buildí image `stafio/arenacallup-web:<yyMMdd>` a pushne ho na Docker Hub
+2. Aktualizuje tag v `infrsastructure-ds/cust/pri.yml` a pushne změnu
+3. Spustí `deploy.yml` na `infrsastructure-ds`, který nasadí stack `cust-pri` na Docker Swarm (tcpro)
 
-WordPress běží na `http://localhost:8080`.
+Pokud byl image dnes už buildován, krok 1 se přeskočí automaticky. Build lze přeskočit i ručně:
 
-Při prvním spuštění je nutné dokončit instalaci WordPressu na `http://localhost:8080/wp-admin/install.php`:
-1. Zvolit jazyk: **Čeština**
-2. Vyplnit název webu, uživatelské jméno a heslo administrátora
-3. Po instalaci spustit setup přes WP-CLI:
-
-```bash
-docker compose exec wordpress wp theme activate arenacallup --allow-root
-docker compose exec wordpress wp rewrite structure '/%postname%/' --allow-root
-docker compose exec wordpress wp rewrite flush --allow-root
+```powershell
+.\stf-scripts\deploy.ps1 -SkipBuild
 ```
 
-Administrace: `http://localhost:8080/wp-admin`
+Web běží na `https://www.callup.stafio.cz` (stack `cust-pri`, service `callup-web`).
 
-Custom theme se nachází v `wp-content/themes/arenacallup/` — při lokálním vývoji je složka mountována jako volume (změny se projeví ihned bez rebuildu).
-
-### Produkční build
+### Manuální build image
 
 ```bash
 docker build -t arenacallup-web .
 ```
-
-Produkce vyžaduje dva kontejnery: **WordPress** a **MySQL**.
-
-> **TODO:** Vytvořit `docker-compose.prod.yml` pro produkční nasazení.
-
-Prozatím lze spustit oba kontejnery ručně:
-
-Spuštění MySQL kontejneru:
-
-```bash
-docker run -d \
-  --name arenacallup-db \
-  --network arenacallup-net \
-  -e MYSQL_DATABASE=<db> \
-  -e MYSQL_USER=<user> \
-  -e MYSQL_PASSWORD=<password> \
-  -e MYSQL_ROOT_PASSWORD=<root-password> \
-  -v arenacallup-db-data:/var/lib/mysql \
-  mysql:8.0
-```
-
-Spuštění WordPress kontejneru:
-
-```bash
-docker network create arenacallup-net
-
-docker run -d \
-  --name arenacallup-web \
-  --network arenacallup-net \
-  -e WORDPRESS_DB_HOST=arenacallup-db \
-  -e WORDPRESS_DB_NAME=<db> \
-  -e WORDPRESS_DB_USER=<user> \
-  -e WORDPRESS_DB_PASSWORD=<password> \
-  -e GTM_CONTAINER_ID=<GTM-XXXXXX> \
-  -p 80:80 \
-  arenacallup-web
-```
-
-MySQL data jsou persistována do named volume `arenacallup-db-data`.
 
 ---
 
