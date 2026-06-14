@@ -72,6 +72,5 @@ V administraci **Nastavení → Čtení** nastavit „Úvodní stránka zobrazuj
 
 ## Drobné zbývající věci
 
-- [ ] Přidat `docker-compose.prod.yml` pro produkční nasazení bez lokálního volume mountu (viz TODO v `devel-arenacallup-web-wordpress.md`)
 - [ ] Logo — `header.php` zobrazuje textové „Callup". Pokud existuje SVG/PNG logo, nahradit v `header.php` za `<img>`
 - [ ] Favicon — přidat do `header.php` nebo přes WP administraci

@@ -30,6 +30,68 @@ Formuláře (odpověď na inzerát, registrace) se odesílají přes **AJAX** s 
 
 ---
 
+## Lokální vývoj
+
+Veškerý vývoj běží v Dockeru přes Compose — žádné lokální PHP/MySQL není potřeba. Repozitář obsahuje **pouze custom téma** (`wp-content/themes/arenacallup/`); WordPress core, defaultní témata, Akismet apod. přicházejí z base image `wordpress:php8.3-apache`, Cookie Notice plugin je instalován v `Dockerfile`.
+
+### Požadavky
+
+- Docker Desktop (Windows/macOS) nebo Docker Engine + Compose plugin (Linux)
+
+### První spuštění
+
+```bash
+docker compose up -d --build
+```
+
+Po prvním startu je nutné dokončit WordPress instalaci a aktivovat téma + plugin:
+
+```bash
+docker compose exec wordpress wp core install \
+  --url=http://localhost:8080 --title=Callup \
+  --admin_user=admin --admin_password=admin \
+  --admin_email=dev@stafio.cz --allow-root
+docker compose exec wordpress wp theme activate arenacallup --allow-root
+docker compose exec wordpress wp plugin activate cookie-notice --allow-root
+docker compose exec wordpress wp rewrite structure '/%postname%/' --allow-root
+docker compose exec wordpress wp rewrite flush --allow-root
+```
+
+Web pak běží na `http://localhost:8080`, administrace na `http://localhost:8080/wp-admin/`.
+
+### Vývojový cyklus
+
+Adresář `wp-content/themes/arenacallup/` je bind-mountovaný do kontejneru — změny v PHP / CSS / JS jsou okamžitě vidět po refreshi prohlížeče, **rebuild image není potřeba**.
+
+Image se rebuilduje pouze když:
+
+- měníte `Dockerfile` (např. bump verze Cookie Notice pluginu nebo wp-cli),
+- bumpujete base image (`wordpress:php8.3-apache`),
+- přidáváte další pinovaný plugin do `Dockerfile`.
+
+V tom případě:
+
+```bash
+docker compose up -d --build
+```
+
+### Persistence dat
+
+- `uploads` (named volume) — `wp-content/uploads`, přežívá `docker compose down`
+- `db` (named volume) — MariaDB data, přežívá `docker compose down`
+
+Kompletní vyčištění (smaže DB i nahrané obrázky):
+
+```bash
+docker compose down -v
+```
+
+### wp-cli
+
+`wp-cli` je nainstalovaný přímo v image, takže `docker compose exec wordpress wp <command> --allow-root` funguje v dev i v produkci (na tcpro přes `docker exec` do běžícího kontejneru).
+
+---
+
 ## Nasazení
 
 ### Požadavky

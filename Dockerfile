@@ -2,9 +2,14 @@ FROM wordpress:php8.3-apache
 
 ARG COOKIE_NOTICE_VERSION=2.4.17
 
-# Install unzip (needed for plugin extraction)
-RUN apt-get update && apt-get install -y --no-install-recommends unzip \
+# Install unzip (needed for plugin extraction) + less (used by wp-cli for paging)
+RUN apt-get update && apt-get install -y --no-install-recommends unzip less \
     && rm -rf /var/lib/apt/lists/*
+
+# Install wp-cli (used for one-off ops: theme activation, rewrite flush, plugin install, ...)
+RUN curl -fsSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+        -o /usr/local/bin/wp \
+    && chmod +x /usr/local/bin/wp
 
 # Download and install Cookie Notice plugin (pinned version for reproducible builds)
 RUN curl -fsSL \
