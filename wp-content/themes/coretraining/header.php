@@ -10,10 +10,10 @@
 <header class="site-header">
     <div class="site-header__inner">
         <a href="<?php echo esc_url(home_url('/')); ?>" class="site-header__logo">
-            <span class="site-header__logo-callup">Callup</span>
+            <span class="site-header__logo-coretraining">Coretraining</span>
         </a>
         <nav class="site-header__nav">
-            <a href="https://smeny.callup.stafio.cz" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">
+            <a href="https://smeny.coretraining.stafio.cz" target="_blank" rel="noopener noreferrer" class="btn btn--outline btn--sm">
                 Přihlásit se
             </a>
             <a href="<?php echo esc_url(home_url('/registrace/')); ?>" class="btn btn--primary btn--sm">

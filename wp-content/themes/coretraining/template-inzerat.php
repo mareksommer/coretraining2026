@@ -3,7 +3,7 @@
  * Template: Detail inzerátu (/inzerat/{id}/)
  */
 
-$job_id = sanitize_text_field(get_query_var('callup_job_id'));
+$job_id = sanitize_text_field(get_query_var('coretraining_job_id'));
 
 if (!$job_id) {
     global $wp_query;
@@ -13,7 +13,7 @@ if (!$job_id) {
     exit;
 }
 
-$result = callup_api_post('rpc/clp_job_get_detail', ['job_id_' => $job_id]);
+$result = coretraining_api_post('rpc/clp_job_get_detail', ['job_id_' => $job_id]);
 
 if (is_wp_error($result) || empty($result)) {
     global $wp_query;
@@ -25,11 +25,11 @@ if (is_wp_error($result) || empty($result)) {
 
 $job = is_array($result) && isset($result[0]) ? $result[0] : $result;
 
-global $callup_page_title, $callup_meta_description, $callup_og_title, $callup_og_description;
-$callup_page_title      = $job['title'] ?? '';
-$callup_meta_description = $job['short_description'] ?? $job['description_short'] ?? '';
-$callup_og_title        = $callup_page_title;
-$callup_og_description  = $callup_meta_description;
+global $coretraining_page_title, $coretraining_meta_description, $coretraining_og_title, $coretraining_og_description;
+$coretraining_page_title      = $job['title'] ?? '';
+$coretraining_meta_description = $job['short_description'] ?? $job['description_short'] ?? '';
+$coretraining_og_title        = $coretraining_page_title;
+$coretraining_og_description  = $coretraining_meta_description;
 
 get_header();
 ?>
@@ -89,7 +89,7 @@ get_header();
                 class="btn btn--primary btn--lg"
             >Mám zájem</a>
             <a
-                href="https://smeny.callup.stafio.cz"
+                href="https://smeny.coretraining.stafio.cz"
                 target="_blank"
                 rel="noopener noreferrer"
                 class="btn btn--outline btn--lg"

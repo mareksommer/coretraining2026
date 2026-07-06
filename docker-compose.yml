@@ -1,4 +1,4 @@
-# Local development stack for arenacallup-web-wordpress.
+# Local development stack for coretraining-web-wordpress.
 #
 # Production (tcpro / Docker Swarm) uses infrsastructure-ds/cust/pri.yml
 # and does NOT bind-mount the theme - the theme is baked into the image.
@@ -6,14 +6,14 @@
 services:
   wordpress:
     build: .
-    image: arenacallup-web:dev
+    image: coretraining-web:dev
     ports:
       - "8080:80"
     environment:
       WORDPRESS_DB_HOST: db:3306
-      WORDPRESS_DB_NAME: callup
-      WORDPRESS_DB_USER: callup
-      WORDPRESS_DB_PASSWORD: callup
+      WORDPRESS_DB_NAME: coretraining
+      WORDPRESS_DB_USER: coretraining
+      WORDPRESS_DB_PASSWORD: coretraining
       WORDPRESS_DEBUG: "1"
       WORDPRESS_CONFIG_EXTRA: |
         define('WP_DEBUG_LOG', true);
@@ -22,7 +22,7 @@ services:
       # GTM_CONTAINER_ID: GTM-XXXXXXX   # theme reads it via getenv() in functions.php
     volumes:
       # Bind-mount ONLY the custom theme - everything else (WP core, plugins) comes from the image.
-      - ./wp-content/themes/arenacallup:/var/www/html/wp-content/themes/arenacallup
+      - ./wp-content/themes/coretraining:/var/www/html/wp-content/themes/coretraining
       # Uploads persist across `docker compose down`. Use `down -v` to wipe.
       - uploads:/var/www/html/wp-content/uploads
     depends_on:
@@ -33,9 +33,9 @@ services:
     # Keep aligned with production (infrsastructure-ds/cust/pri.yml uses mysql:8.0).
     image: mysql:8.0
     environment:
-      MYSQL_DATABASE: callup
-      MYSQL_USER: callup
-      MYSQL_PASSWORD: callup
+      MYSQL_DATABASE: coretraining
+      MYSQL_USER: coretraining
+      MYSQL_PASSWORD: coretraining
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - db:/var/lib/mysql

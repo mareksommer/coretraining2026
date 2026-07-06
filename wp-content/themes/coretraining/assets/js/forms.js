@@ -1,4 +1,4 @@
-/* Callup forms — AJAX submission, validation, spinner */
+/* Coretraining forms — AJAX submission, validation, spinner */
 (function () {
     'use strict';
 
@@ -136,11 +136,11 @@
         setLoading(btn, true);
         hideAlert(alertBox);
 
-        fetch(callupData.restUrl + endpoint, {
+        fetch(coretrainingData.restUrl + endpoint, {
             method:  'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'X-WP-Nonce':   callupData.nonce,
+                'X-WP-Nonce':   coretrainingData.nonce,
             },
             body: JSON.stringify(data),
         })

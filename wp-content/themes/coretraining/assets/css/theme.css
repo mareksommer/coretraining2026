@@ -73,14 +73,14 @@ a:hover { text-decoration: underline; }
     gap: 6px;
 }
 
-.site-header__logo-callup {
+.site-header__logo-coretraining {
     color: var(--color-white);
     font-size: 1.25rem;
     font-weight: 700;
     letter-spacing: -0.02em;
 }
 
-.site-header__logo-callup::first-letter {
+.site-header__logo-coretraining::first-letter {
     color: var(--color-primary);
 }
 
@@ -445,7 +445,7 @@ a:hover { text-decoration: underline; }
     margin-top: 16px;
 }
 
-.callup-form {
+.coretraining-form {
     background: var(--color-white);
     border-radius: var(--radius);
     box-shadow: var(--shadow);

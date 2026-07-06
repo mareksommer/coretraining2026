@@ -3,17 +3,17 @@
  * Template: Landing page — výpis inzerátů
  */
 
-global $callup_page_title, $callup_meta_description;
-$callup_page_title       = 'Brigády v O2 Areně – Callup';
-$callup_meta_description = 'Pracovní příležitosti v O2 Areně a O2 Universu. Najdi si brigádu nebo práci na akcích světové úrovně.';
+global $coretraining_page_title, $coretraining_meta_description;
+$coretraining_page_title       = 'Brigády v O2 Areně – Coretraining';
+$coretraining_meta_description = 'Pracovní příležitosti v O2 Areně a O2 Universu. Najdi si brigádu nebo práci na akcích světové úrovně.';
 
 // Načti inzeráty (5min cache)
-$jobs = get_transient('callup_home_jobs');
+$jobs = get_transient('coretraining_home_jobs');
 if ($jobs === false) {
-    $result = callup_api_post('rpc/clp_page_get_home', ['limit_' => 99, 'offset_' => 0]);
+    $result = coretraining_api_post('rpc/clp_page_get_home', ['limit_' => 99, 'offset_' => 0]);
     if (!is_wp_error($result)) {
         $jobs = $result;
-        set_transient('callup_home_jobs', $jobs, 5 * MINUTE_IN_SECONDS);
+        set_transient('coretraining_home_jobs', $jobs, 5 * MINUTE_IN_SECONDS);
     } else {
         $jobs       = null;
         $jobs_error = $result->get_error_message();
@@ -26,7 +26,7 @@ get_header();
 <section class="hero">
     <div class="container">
         <h1 class="hero__title">Pracovní příležitosti v&nbsp;O2 Areně</h1>
-        <p class="hero__subtitle">Připoj se k týmu Callup a pracuj na sportovních a kulturních akcích světové úrovně.</p>
+        <p class="hero__subtitle">Připoj se k týmu Coretraining a pracuj na sportovních a kulturních akcích světové úrovně.</p>
     </div>
 </section>
 

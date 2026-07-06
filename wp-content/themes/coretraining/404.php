@@ -3,8 +3,8 @@
  * Template: 404 stránka
  */
 
-global $callup_page_title;
-$callup_page_title = 'Stránka nenalezena – Callup';
+global $coretraining_page_title;
+$coretraining_page_title = 'Stránka nenalezena – Coretraining';
 
 get_header();
 ?>

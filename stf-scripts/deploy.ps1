@@ -5,7 +5,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-$appRepo   = 'stafiocz/arenacallup-web-wordpress'
+$appRepo   = 'stafiocz/coretraining-web-wordpress'
 $infraRepo = 'stafiocz/infrsastructure-ds'
 $infraDir  = Resolve-Path (Join-Path $PSScriptRoot '..\..\infrsastructure-ds')
 $tag       = Get-Date -Format 'yyMMdd'
@@ -44,12 +44,12 @@ Write-Host "`n=== Update pri.yml (tag $tag) ===" -ForegroundColor Cyan
 Push-Location $infraDir
 try {
     $content = Get-Content $priYml -Raw
-    $content = $content -replace 'image: stafio/arenacallup-web:\S+', "image: stafio/arenacallup-web:$tag"
+    $content = $content -replace 'image: stafio/coretraining-web:\S+', "image: stafio/coretraining-web:$tag"
     Set-Content $priYml $content -Encoding utf8 -NoNewline
 
     if (git status --porcelain) {
         git add 'cust\pri.yml'
-        git commit -m "release: arenacallup-web :$tag"
+        git commit -m "release: coretraining-web :$tag"
         git push origin main
         Write-Host "  Pushed." -ForegroundColor Green
     } else {
@@ -66,4 +66,4 @@ Start-Sleep 5
 $deployId = (gh run list --repo $infraRepo --workflow deploy.yml --limit 1 --json databaseId | ConvertFrom-Json)[0].databaseId
 Wait-Run $deployId $infraRepo
 
-Write-Host "`n=== Done! arenacallup-web nasazen s image :$tag ===" -ForegroundColor Green
+Write-Host "`n=== Done! coretraining-web nasazen s image :$tag ===" -ForegroundColor Green

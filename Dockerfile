@@ -20,4 +20,4 @@ RUN curl -fsSL \
     && rm /tmp/cookie-notice.zip
 
 # Copy custom theme
-COPY wp-content/themes/arenacallup/ /var/www/html/wp-content/themes/arenacallup/
+COPY wp-content/themes/coretraining/ /var/www/html/wp-content/themes/coretraining/

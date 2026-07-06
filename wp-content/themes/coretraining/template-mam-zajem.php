@@ -3,7 +3,7 @@
  * Template: Odpověď na inzerát (/mam-zajem/{id}/)
  */
 
-$job_id = sanitize_text_field(get_query_var('callup_job_id'));
+$job_id = sanitize_text_field(get_query_var('coretraining_job_id'));
 
 if (!$job_id) {
     global $wp_query;
@@ -14,7 +14,7 @@ if (!$job_id) {
 }
 
 // Načti detail inzerátu pro kontext
-$result = callup_api_post('rpc/clp_job_get_detail', ['job_id_' => $job_id]);
+$result = coretraining_api_post('rpc/clp_job_get_detail', ['job_id_' => $job_id]);
 
 if (is_wp_error($result) || empty($result)) {
     global $wp_query;
@@ -26,8 +26,8 @@ if (is_wp_error($result) || empty($result)) {
 
 $job = is_array($result) && isset($result[0]) ? $result[0] : $result;
 
-global $callup_page_title;
-$callup_page_title = 'Mám zájem — ' . ($job['title'] ?? '');
+global $coretraining_page_title;
+$coretraining_page_title = 'Mám zájem — ' . ($job['title'] ?? '');
 
 get_header();
 ?>
@@ -43,8 +43,8 @@ get_header();
 
         <div id="form-message" class="alert" style="display:none"></div>
 
-        <form id="job-response-form" class="callup-form" novalidate>
-            <?php wp_nonce_field('callup_job_response', 'callup_nonce'); ?>
+        <form id="job-response-form" class="coretraining-form" novalidate>
+            <?php wp_nonce_field('coretraining_job_response', 'coretraining_nonce'); ?>
             <input type="hidden" name="job_id" value="<?php echo esc_attr($job_id); ?>">
 
             <!-- Honeypot -->
