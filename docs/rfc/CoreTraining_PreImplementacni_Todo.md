@@ -565,14 +565,14 @@ Env:       GTM_CONTAINER_ID
 ### Implementační checklist (vývojář)
 
 - [ ] Registrovat CPT `kurz`, `reference`
-- [ ] Přepsat `front-page.php` (odstranit legacy brigády)
+- [x] Přepsat `front-page.php` (odstranit legacy brigády)
 - [ ] Implementovat bloky `quote`, `info-box`
 - [ ] REST: contact + course-registration
 - [ ] Yoast SEO do Dockerfile nebo deploy skriptu
 - [ ] Cookie Notice aktivovat + nastavit texty
 - [ ] Permalink struktura: `/clanky/%postname%/`, `/kurzy/%postname%/`
 - [ ] Leaflet mapa na Kontaktu (souřadnice CORE Letňany)
-- [ ] Odstranit legacy: rewrite rules inzerát/mam-zajem, job API volání
+- [x] Odstranit legacy: rewrite rules inzerát/mam-zajem, job API volání
 
 ---
 
