@@ -91,21 +91,21 @@ $latest_post  = coretraining_get_latest_clanky(1);
 
 <section class="section section--stats">
     <div class="container">
-        <ul class="stats">
+        <ul class="stats" data-stats>
             <li class="stats__item">
-                <span class="stats__value">25+</span>
+                <span class="stats__value" data-count="25" data-suffix="+">0+</span>
                 <span class="stats__label">let praxe</span>
             </li>
             <li class="stats__item">
-                <span class="stats__value">350+</span>
+                <span class="stats__value" data-count="350" data-suffix="+">0+</span>
                 <span class="stats__label">odborných článků</span>
             </li>
             <li class="stats__item">
-                <span class="stats__value">40+</span>
+                <span class="stats__value" data-count="40" data-suffix="+">0+</span>
                 <span class="stats__label">seminářů a kurzů</span>
             </li>
             <li class="stats__item">
-                <span class="stats__value">1000+</span>
+                <span class="stats__value" data-count="1000" data-suffix="+">0+</span>
                 <span class="stats__label">účastníků vzdělávání</span>
             </li>
             <li class="stats__item stats__item--text">

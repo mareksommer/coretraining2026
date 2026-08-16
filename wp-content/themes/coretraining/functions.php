@@ -3,7 +3,7 @@
  * CoreTraining theme functions
  */
 
-define('CORETRAINING_VERSION', '2.3.5');
+define('CORETRAINING_VERSION', '2.3.6');
 
 $coretraining_includes = [
     'inc/setup.php',
