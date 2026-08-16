@@ -1,0 +1,25 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "coretraining/quote",
+    "title": "Citace",
+    "category": "text",
+    "icon": "format-quote",
+    "description": "Odborná citace s volitelným autorem.",
+    "textdomain": "coretraining",
+    "attributes": {
+        "content": {
+            "type": "string",
+            "default": ""
+        },
+        "author": {
+            "type": "string",
+            "default": ""
+        }
+    },
+    "supports": {
+        "html": false
+    },
+    "editorScript": "coretraining-blocks-editor",
+    "render": "file:./render.php"
+}

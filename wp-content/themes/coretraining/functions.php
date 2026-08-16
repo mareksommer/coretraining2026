@@ -3,7 +3,26 @@
  * CoreTraining theme functions
  */
 
-define('CORETRAINING_VERSION', '2.0.0');
+define('CORETRAINING_VERSION', '2.3.5');
+
+$coretraining_includes = [
+    'inc/setup.php',
+    'inc/post-types.php',
+    'inc/taxonomies.php',
+    'inc/meta-boxes.php',
+    'inc/rewrite.php',
+    'inc/helpers.php',
+    'inc/icons.php',
+    'inc/rest-api.php',
+    'inc/blocks.php',
+];
+
+foreach ($coretraining_includes as $file) {
+    $path = get_template_directory() . '/' . $file;
+    if (file_exists($path)) {
+        require_once $path;
+    }
+}
 
 // ── Theme setup ───────────────────────────────────────────────────────────────
 
@@ -129,5 +148,6 @@ function coretraining_check_rate_limit(): bool {
 }
 
 function coretraining_validate_phone(string $phone): bool {
+    $phone = preg_replace('/\s+/', '', $phone);
     return (bool) preg_match('/^\+?[0-9]{7,15}$/', $phone);
 }

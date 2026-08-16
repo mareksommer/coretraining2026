@@ -1,0 +1,25 @@
+{
+    "$schema": "https://schemas.wp.org/trunk/block.json",
+    "apiVersion": 3,
+    "name": "coretraining/info-box",
+    "title": "Info box",
+    "category": "text",
+    "icon": "info",
+    "description": "Zvýrazněný box — tip, upozornění nebo shrnutí.",
+    "textdomain": "coretraining",
+    "attributes": {
+        "content": {
+            "type": "string",
+            "default": ""
+        },
+        "variant": {
+            "type": "string",
+            "default": "tip"
+        }
+    },
+    "supports": {
+        "html": false
+    },
+    "editorScript": "coretraining-blocks-editor",
+    "render": "file:./render.php"
+}

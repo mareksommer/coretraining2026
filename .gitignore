@@ -1,3 +1,6 @@
+# Local env
+.env
+
 # WordPress sensitive config
 wp-config.php
 
